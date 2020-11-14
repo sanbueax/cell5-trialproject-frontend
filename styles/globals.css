@@ -1,0 +1,72 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.parallax-window {
+  min-height: 100vh;
+  max-height: 100vmax;
+  background: transparent;
+  /* opacity: 0.5; */
+}
+
+.bg-light {
+  background-color: #1C00ff00 !important;
+}
+
+.content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  color: #f8f1e7;
+  font-family: "Montserrat", sans-serif;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.quotes {
+  visibility: visible; 
+  animation-name: zoomIn;
+}
+
+.homebg {
+  max-width: 100%;
+  height: -webkit-fill-available;
+}
+
+.tourist {
+  visibility: visible; 
+  animation-delay: 1s; 
+  animation-name: fadeInUp;
+}
+
+.hovereffect .overlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
