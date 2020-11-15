@@ -1,15 +1,19 @@
-import React, { useState, useEffect } from 'react'
-import { Form, Button, Col, Row } from 'react-bootstrap'
+import React, {useState, useEffect} from 'react'
+import { Form, Button, Container, Card, Row } from 'react-bootstrap'
+// import UserContext from '../UserContext'
+import AppHelper from '../apphelper'
+import Swal from 'sweetalert2'
 import Router from 'next/router'
 // import Head from 'next/head'
+import Link from 'next/link'
 import View from '../components/View'
-import AppHelper from '../apphelper'
 
 export default function register() {
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
     const [email, setEmail] = useState('')
     const [password1, setPassword1] = useState('')
     const [password2, setPassword2] = useState('')
-
     const [isActive, setIsActive] = useState(false)
 
     useEffect(() => {
@@ -19,13 +23,6 @@ export default function register() {
             setIsActive(false)
         }
     }, [password1, password2])
-
-    /* useEffect(() => {
-        effect
-        return () => {
-            cleanup
-        }
-    }, [input]) */
 
     function registerUser(e) {
         e.preventDefault();
@@ -48,6 +45,8 @@ export default function register() {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
+                        lastName: lastName,
+                        firstName: firstName,
                         email: email,
                         password: password1
                     })
@@ -55,13 +54,28 @@ export default function register() {
                 .then(res => res.json())
                 .then(data => {
                     if(data === true){
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Registration successful!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })                        
                         Router.push('/login')
                     }else{
-                        Router.push('/error')
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!'
+                        })
                     }
                 })
             }else{
-                Router.push('/error')
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Email Address already in use!'
+                })
             }
         })
     } 
@@ -70,34 +84,46 @@ export default function register() {
         <React.Fragment>
             <View title={ 'Register' }>
                 <Row className="justify-content-center">
-                    <Col xs md="6">
-                        <Form onSubmit={(e) => registerUser(e)}>
+                    <Card>
+		            	<Card.Header className="text-center">Register</Card.Header>
+		            	<Card.Body>
+                            <Form onSubmit={(e) => registerUser(e)}>
+								<Form.Group controlId="firstName">
+					                <Form.Label>First Name</Form.Label>
+					                <Form.Control type="text" placeholder="Enter First Name" value={firstName} onChange={e => setFirstName(e.target.value)} required/>
+					            </Form.Group>
 
-                        <Form.Group controlId="userEmail">
-                            <Form.Label>Email address</Form.Label>
-                            <Form.Control type="email" placeholder="Enter email" value={email} onChange={e => setEmail(e.target.value)} required/>
-                            <Form.Text className="text-muted">
-                            We'll never share your email with anyone else.
-                            </Form.Text>
-                        </Form.Group>
+								<Form.Group controlId="lastName">
+					                <Form.Label>Last Name</Form.Label>
+					                <Form.Control type="text" placeholder="Enter Last Name" value={lastName} onChange={e => setLastName(e.target.value)} required/>
+					            </Form.Group>	            
 
-                        <Form.Group controlId="password1">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password" value={password1} onChange={e => setPassword1(e.target.value)} required/>
-                        </Form.Group>
+					            <Form.Group controlId="userEmail">
+					                <Form.Label>Email address</Form.Label>
+					                <Form.Control type="email" placeholder="Enter Email" value={email} onChange={e => setEmail(e.target.value)} required/>
+					                <Form.Text className="text-muted">
+					                We'll never share your email with anyone else.
+					                </Form.Text>
+					            </Form.Group>
 
-                        <Form.Group controlId="password2">
-                            <Form.Label>Verify Password</Form.Label>
-                            <Form.Control type="password" placeholder="Verify Password" value={password2} onChange={e => setPassword2(e.target.value)} required/>
-                        </Form.Group>
+					            <Form.Group controlId="password1">
+					                <Form.Label>Password</Form.Label>
+					                <Form.Control type="password" placeholder="Password" value={password1} onChange={e => setPassword1(e.target.value)} required/>
+					            </Form.Group>
 
-                        {isActive
-                            ? <Button variant="primary" type="submit" id="submitBtn">Submit</Button>
-                            : <Button variant="primary" type="submit" id="submitBtn" disabled>Submit</Button>
-                        }
-
-                        </Form>
-                    </Col>
+					            <Form.Group controlId="password2">
+					                <Form.Label>Verify Password</Form.Label>
+					                <Form.Control type="password" placeholder="Verify Password" value={password2} onChange={e => setPassword2(e.target.value)} required/>
+					            </Form.Group>
+					            <Card.Footer className="text-muted mt-0">Already have an account? <Link href="/">Login</Link></Card.Footer>
+					            {isActive ?
+					                <Button className="w-100 text-center d-flex justify-content-center mt-3" variant="primary" type="submit" id="submitBtn">Submit</Button>
+					                :
+					                <Button className="w-100 text-center d-flex justify-content-center mt-3" variant="primary" type="submit" id="submitBtn" disabled>Submit</Button>
+					            }
+					        </Form>
+                        </Card.Body>
+					</Card>
                 </Row>
             </View>
         </React.Fragment>
