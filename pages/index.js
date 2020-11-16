@@ -1,9 +1,13 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap'
+import Head from 'next/head'
 
-export default function Home(){
+export default function index(){
     return(
       <React.Fragment>
+        <Head>
+        <title key="title-tag">iTravel</title>
+        </Head>
         <header>
             <div className="parallax-window" data-parallax="scroll">
                 <img className="img-fluid homebg" src="./background.png"/>

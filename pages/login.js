@@ -8,7 +8,7 @@ import AppHelper from '../apphelper'
 import View from '../components/View'
 import Link from 'next/link'
 
-export default function index() {
+export default function login() {
     // const { user } = useContext(UserContext);
     // console.log(user)
 

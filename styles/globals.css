@@ -70,3 +70,8 @@ a {
   -webkit-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
 }
+
+.mapContainer {
+  min-height: 70vh;
+  width: 100%;
+}

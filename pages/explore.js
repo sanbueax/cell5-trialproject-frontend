@@ -3,8 +3,11 @@ import { Card, Button, Form, Tabs, Tab, Row, Col, FormControl, Container } from 
 import AppHelper from '../apphelper'
 import Swal from 'sweetalert2'
 import View from '../components/View'
+import Link from 'next/link';
+import Router from 'next/router';
+// import { useRouter } from 'next/router'
 
-export default function Explore(){
+export default function explore(){
     const [islandGroup, setIslandGroup] = useState('Luzon');
     const [islandGroups, setIslandGroups] = useState('Luzon');
     const [island, setIsland] = useState('All');
@@ -14,248 +17,12 @@ export default function Explore(){
     const [provinceName, setProvinceName] = useState('');
     const [description, setDescription] = useState('');
 
-    const [pronvinces, setProvinces] = useState([]);
+    // const [pronvinces, setProvinces] = useState([]);
     const [regionData, setRegionData] = useState([]);
     // const [regionsData, setRegionsData] = useState([]);
     const [search, setSearch] = useState('')
-    const [searchData, setSearchData] = useState('')
+    const [searchData, setSearchData] = useState([])
     const [list, setList] = useState([])
-
-    // useEffect(() => {
-    // 	fetch(`${ AppHelper.API_URL }/region/get-region`, {
-    // 		method: 'GET',
-	// 		headers: {
-	// 			'Content-Type': 'application/json'
-	// 		}
-	// 	})
-	// 	.then(res => res.json())
-	// 	.then(data => {
-	// 		let regionsArr = [];
-
-	// 		if(data.length > 0){
-    //             if(island === "All"){
-    //                 regionsArr = data.filter(region => {
-    //                     return region.islandGroup === region.islandGroup
-    //                 })
-    //                 setRegionsData(regionsArr.map(region => {
-	// 					return <option key={region._id} value={region.regionName}>{region.regionName}</option>
-	// 				}))
-    //             }else if(island === "Luzon"){
-	// 				regionsArr = data.filter(region => {
-	// 					// console.log(region)
-	// 					return region.islandGroup === "Luzon"
-	// 				})
-	// 				setRegionsData(regionsArr.map(region => {
-	// 					return <option key={region._id} value={region.regionName}>{region.regionName}</option>
-	// 				}))
-    //             }else if(island === "Visayas"){
-	// 				regionsArr = data.filter(region => {
-	// 					// console.log(region)
-	// 					return region.islandGroup === "Visayas"
-	// 				})
-	// 				setRegionsData(regionsArr.map(region => {
-	// 					return <option key={region._id} value={region.regionName}>{region.regionName}</option>
-	// 				}))
-	// 			}else{
-    //                 regionsArr = data.filter(region => {
-	// 					console.log(region)
-	// 					return region.islandGroup === "Mindanao"
-	// 				})
-	// 				setRegionsData(regionsArr.map(region => {
-	// 					return <option key={region._id} value={region.regionName}>{region.regionName}</option>
-	// 				}))
-    //             }
-	// 			console.log(regionsArr.length === 0)
-
-	// 			if(regionsArr.length === 0){
-	// 				Swal.fire('Oops...', 'Please Create Region Category!', 'warning')
-	// 				Router.push('/')
-    //             }
-    //             // else{
-	// 			// 	setPhilRegions(regionsArr[0].regionName)
-	// 			// }
-    //         }else{
-	// 			Swal.fire('Oops...', 'Please Create Region!', 'warning')
-	// 		}
-	// 	})
-    // }, [island])
-
-    useEffect(() => {
-    	fetch(`${ AppHelper.API_URL }/provinces/get-provinces`, {
-    		method: 'GET',
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		})
-		.then(res => res.json())
-		.then(data => {
-			if(data.length > 0){
-                data.reverse()
-                console.log(data)
-				setProvinces(data)
-			}else{
-				Swal.fire('Oops...', 'Please Create Transactions!', 'warning')
-			}
-		})
-    }, [])
-
-    useEffect(() => {
-        console.log(search)
-    	if(search !== ""){
-            let term = new RegExp(search.toLowerCase())
-
-            console.log(term)
-    		setSearchData(pronvinces.filter(record => {
-                console.log(record)
-                console.log(term.test(record.provinceName.toLowerCase()))
-    			return (term.test(record.islandGroup.toLowerCase())
-    				|| term.test(record.description.toLowerCase())
-    				|| term.test(record.provinceName.toLowerCase())
-    				|| term.test(record.region.toLowerCase()))
-    		}))
-    	}else{
-    		setSearchData(pronvinces)
-    	}
-    }, [search, pronvinces])
-
-    useEffect(() => {
-        console.log(searchData)
-        let searchDataArray = [];
-        if(searchData.length > 0){
-            if(island === "All"){
-                searchDataArray = searchData.filter(record => {
-                    return record.islandGroup === record.islandGroup 
-                })
-                if(searchDataArray.length > 0){
-                    setList(searchDataArray.map(record => {
-                        return(
-                            <React.Fragment key={record._id}>
-                                <Card.Header>
-                                    <div>{record.provinceName}</div> 
-                                    <div>{record.region} ({record.islandGroup})</div>
-                                    </Card.Header>
-                                <Card.Body>
-                                    <p>{record.description}</p>
-                                </Card.Body>
-                            </React.Fragment> 
-                        )
-                    }))
-                }else{
-                    setList(() => {
-                        return(
-                            <React.Fragment>
-                                <Card.Header></Card.Header>
-                                <Card.Body>
-                                    <p>No Record</p>
-                                </Card.Body>
-                            </React.Fragment>
-                        )
-                    })
-                }
-            }else if(island === "Luzon"){
-                searchDataArray = searchData.filter(record => {
-                    return record.islandGroup === "Luzon"
-                })
-                if(searchDataArray.length > 0){
-                    setList(searchDataArray.map(record => {
-                        return(
-                            <React.Fragment key={record._id}>
-                                <Card.Header>
-                                    <div>{record.provinceName}</div> 
-                                    <div>{record.region} ({record.islandGroup})</div>
-                                    </Card.Header>
-                                <Card.Body>
-                                    <p>{record.description}</p>
-                                </Card.Body>
-                            </React.Fragment> 
-                        )
-                    }))
-                }else{
-                    setList(() => {
-                        return(
-                            <React.Fragment>
-                                <Card.Header></Card.Header>
-                                <Card.Body>
-                                    <p>No Record</p>
-                                </Card.Body>
-                            </React.Fragment>
-                        )
-                    })
-                }
-            }else if(island === "Visayas"){
-                searchDataArray = searchData.filter(record => {
-                    return record.islandGroup === "Visayas"
-                })
-                if(searchDataArray.length > 0){
-                    setList(searchDataArray.map(record => {
-                        return(
-                            <React.Fragment key={record._id}>
-                                <Card.Header>
-                                    <div>{record.provinceName}</div> 
-                                    <div>{record.region} ({record.islandGroup})</div>
-                                    </Card.Header>
-                                <Card.Body>
-                                    <p>{record.description}</p>
-                                </Card.Body>
-                            </React.Fragment> 
-                        )
-                    }))
-                }else{
-                    setList(() => {
-                        return(
-                            <React.Fragment>
-                                <Card.Header></Card.Header>
-                                <Card.Body>
-                                    <p>No Record</p>
-                                </Card.Body>
-                            </React.Fragment>
-                        )
-                    })
-                }
-            }else{
-                searchDataArray = searchData.filter(record => {
-                    return record.islandGroup === "Mindanao"
-                })
-                if(searchDataArray.length > 0){
-                    setList(searchDataArray.map(record => {
-                        return(
-                            <React.Fragment key={record._id}>
-                                <Card.Header>
-                                    <div>{record.provinceName}</div> 
-                                    <div>{record.region} ({record.islandGroup})</div>
-                                    </Card.Header>
-                                <Card.Body>
-                                    <p>{record.description}</p>
-                                </Card.Body>
-                            </React.Fragment> 
-                        )
-                    }))
-                }else{
-                    setList(() => {
-                        return(
-                            <React.Fragment>
-                                <Card.Header></Card.Header>
-                                <Card.Body>
-                                    <p>No Record</p>
-                                </Card.Body>
-                            </React.Fragment>
-                        )
-                    })
-                }
-            }
-        }else{
-    		setList(() => {
-    			return(
-					<React.Fragment>
-						<Card.Header></Card.Header>
-						<Card.Body>
-						    <p>No Record</p>
-						</Card.Body>
-					</React.Fragment>
-				)
-    		})
-    	}
-    }, [island, searchData])
 
     function addRegion(e){
         e.preventDefault();
@@ -266,7 +33,8 @@ export default function Explore(){
     	fetch(`${ AppHelper.API_URL }/region/add-region`, {
     		method: 'POST',
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
 			},
 			body: JSON.stringify({
                 islandGroup: islandGroups,
@@ -358,7 +126,8 @@ export default function Explore(){
     	fetch(`${ AppHelper.API_URL }/provinces/add-record`, {
     		method: 'POST',
 			headers: {
-				'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
 			},
 			body: JSON.stringify({
                 islandGroup: islandGroup,
@@ -390,6 +159,285 @@ export default function Explore(){
         setProvinceName('')
         setDescription('')
     }   
+
+    function deleteRecord(recordId) {
+		Swal.fire({
+		  title: 'Are you sure?',
+		  text: "You won't be able to revert this!",
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonColor: 'green',
+		  cancelButtonColor: 'rgb(212,175,55)',
+          confirmButtonText: 'Yes, delete it!',
+          allowOutsideClick: false
+		}).then((result) => {
+		    if (result.isConfirmed) {
+	  			const payload = {
+			        method: 'DELETE',
+			        headers: { 
+			      		'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}` 
+			    	},
+			        body: JSON.stringify({ 
+			      		recordId: recordId
+			        })
+			    }
+
+			    fetch(`${ AppHelper.API_URL }/provinces/delete-record`, payload)
+			    .then(res => res.json())
+			    .then(data => {
+	  		    	if(data === true) {
+	  		    		Swal.fire(
+	  		    		  'Deleted!',
+	  		    		  'Record has been deleted.',
+	  		    		  'success'
+                        )
+                        Router.push('/')
+	  		    	} else {
+	  		    		Swal.fire(
+	  		    		  'Error!',
+	  		    		  'Something went wrong.',
+	  		    		  'error'
+	  		    		)
+	  		    	}
+	  		    })
+		    }
+		})
+	}
+
+    useEffect(() => {
+    	fetch(`${ AppHelper.API_URL }/provinces/get-provinces`, {
+    		method: 'GET',
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		})
+		.then(res => res.json())
+		.then(data => {
+			if(data.length > 0){
+                // data.reverse()
+                console.log(data)
+                console.log(search)
+                // setProvinces(data)
+                if(search !== ""){
+                    let term = new RegExp(search.toLowerCase())
+        
+                    console.log(term)
+                    setSearchData(data.filter(record => {
+                        console.log(record)
+                        console.log(term.test(record.provinceName.toLowerCase()))
+                        return (term.test(record.islandGroup.toLowerCase())
+                            || term.test(record.description.toLowerCase())
+                            || term.test(record.provinceName.toLowerCase())
+                            || term.test(record.region.toLowerCase()))
+                    }))
+                }else{
+                    setSearchData(data)
+                }
+			}else{
+				Swal.fire('Oops...', 'Please Create Transactions!', 'warning')
+			}
+		})
+    }, [search])
+
+    useEffect(() => {
+        console.log(searchData)
+        let searchDataArray = [];
+        if(searchData.length > 0){
+            if(island === "All"){
+                searchDataArray = searchData.filter(record => {
+                    return record.islandGroup === record.islandGroup 
+                })
+                if(searchDataArray.length > 0){
+                    setList(searchDataArray.map(record => {
+                        return(
+                            <React.Fragment key={record._id}>
+                                <Card.Header>
+                                    <Row>
+                                        <Col className="col-10">
+                                            <div>
+                                                <Link href={`${record.provinceName.replace(/\s/g,"_")}`}>
+                                                    <a>{record.provinceName}</a>
+                                                </Link>
+                                            </div> 
+                                            <div>{record.region} ({record.islandGroup})</div>
+                                        </Col>
+                                        <Col className="col-2">
+                                            <Link href={{ pathname: '/edit', query: { recordId: record._id } }}>
+                                                <a className="text-warning">EDIT</a>
+                                            </Link>
+                                            <br></br>
+                                            <a onClick={() => deleteRecord(record._id)} className="text-danger">DELETE</a>
+                                        </Col>
+                                    </Row>
+                                </Card.Header>
+                                <Card.Body>
+                                    <p>{record.description}</p>
+                                </Card.Body>
+                            </React.Fragment> 
+                        )
+                    }))
+                }else{
+                    setList(() => {
+                        return(
+                            <React.Fragment>
+                                <Card.Header></Card.Header>
+                                <Card.Body>
+                                    <p>No Record</p>
+                                </Card.Body>
+                            </React.Fragment>
+                        )
+                    })
+                }
+            }else if(island === "Luzon"){
+                searchDataArray = searchData.filter(record => {
+                    return record.islandGroup === "Luzon"
+                })
+                if(searchDataArray.length > 0){
+                    setList(searchDataArray.map(record => {
+                        return(
+                            <React.Fragment key={record._id}>
+                                <Card.Header>
+                                    <Row>
+                                        <Col className="col-10">
+                                            <div>
+                                                <Link href={`${record.provinceName.replace(/\s/g,"_")}`}>
+                                                    <a>{record.provinceName}</a>
+                                                </Link>
+                                            </div> 
+                                            <div>{record.region} ({record.islandGroup})</div>
+                                        </Col>
+                                        <Col className="col-2">
+                                            <Link href={{ pathname: '/edit', query: { recordId: record._id } }}>
+                                                <a className="text-warning">EDIT</a>
+                                            </Link>
+                                            <br></br>
+                                            <a onClick={() => deleteRecord(record._id)} className="text-danger">DELETE</a>
+                                        </Col>
+                                    </Row>
+                                </Card.Header>
+                                <Card.Body>
+                                    <p>{record.description}</p>
+                                </Card.Body>
+                            </React.Fragment> 
+                        )
+                    }))
+                }else{
+                    setList(() => {
+                        return(
+                            <React.Fragment>
+                                <Card.Header></Card.Header>
+                                <Card.Body>
+                                    <p>No Record</p>
+                                </Card.Body>
+                            </React.Fragment>
+                        )
+                    })
+                }
+            }else if(island === "Visayas"){
+                searchDataArray = searchData.filter(record => {
+                    return record.islandGroup === "Visayas"
+                })
+                if(searchDataArray.length > 0){
+                    setList(searchDataArray.map(record => {
+                        return(
+                            <React.Fragment key={record._id}>
+                                <Card.Header>
+                                    <Row>
+                                        <Col className="col-10">
+                                            <div>
+                                                <Link href={`${record.provinceName.replace(/\s/g,"_")}`}>
+                                                    <a>{record.provinceName}</a>
+                                                </Link>
+                                            </div> 
+                                            <div>{record.region} ({record.islandGroup})</div>
+                                        </Col>
+                                        <Col className="col-2">
+                                            <Link href={{ pathname: '/edit', query: { recordId: record._id } }}>
+                                                <a className="text-warning">EDIT</a>
+                                            </Link>
+                                            <br></br>
+                                            <a onClick={() => deleteRecord(record._id)} className="text-danger">DELETE</a>
+                                        </Col>
+                                    </Row>
+                                </Card.Header>
+                                <Card.Body>
+                                    <p>{record.description}</p>
+                                </Card.Body>
+                            </React.Fragment> 
+                        )
+                    }))
+                }else{
+                    setList(() => {
+                        return(
+                            <React.Fragment>
+                                <Card.Header></Card.Header>
+                                <Card.Body>
+                                    <p>No Record</p>
+                                </Card.Body>
+                            </React.Fragment>
+                        )
+                    })
+                }
+            }else{
+                searchDataArray = searchData.filter(record => {
+                    return record.islandGroup === "Mindanao"
+                })
+                if(searchDataArray.length > 0){
+                    setList(searchDataArray.map(record => {
+                        return(
+                            <React.Fragment key={record._id}>
+                                <Card.Header>
+                                    <Row>
+                                        <Col className="col-10">
+                                            <div>
+                                                <Link href={`${record.provinceName.replace(/\s/g,"_")}`}>
+                                                    <a>{record.provinceName}</a>
+                                                </Link>
+                                            </div> 
+                                            <div>{record.region} ({record.islandGroup})</div>
+                                        </Col>
+                                        <Col className="col-2">
+                                            <Link href={{ pathname: '/edit', query: { recordId: record._id } }}>
+                                                <a className="text-warning">EDIT</a>
+                                            </Link>
+                                            <br></br>
+                                            <a onClick={() => deleteRecord(record._id)} className="text-danger">DELETE</a>
+                                        </Col>
+                                    </Row>
+                                </Card.Header>
+                                <Card.Body>
+                                    <p>{record.description}</p>
+                                </Card.Body>
+                            </React.Fragment> 
+                        )
+                    }))
+                }else{
+                    setList(() => {
+                        return(
+                            <React.Fragment>
+                                <Card.Header></Card.Header>
+                                <Card.Body>
+                                    <p>No Record</p>
+                                </Card.Body>
+                            </React.Fragment>
+                        )
+                    })
+                }
+            }
+        }else{
+    		setList(() => {
+    			return(
+					<React.Fragment>
+						<Card.Header></Card.Header>
+						<Card.Body>
+						    <p>No Record</p>
+						</Card.Body>
+					</React.Fragment>
+				)
+    		})
+    	}
+    }, [island, searchData])
 
     return(
         <React.Fragment>
