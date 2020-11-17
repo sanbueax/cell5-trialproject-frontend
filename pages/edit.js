@@ -8,6 +8,7 @@ import Router from 'next/router';
 // import Link from 'next/link'
 import UserContext from '../UserContext'
 import Swal from 'sweetalert2';
+import Landing from '../styles/Landing.module.css'
 
 export default function edit(){
     const { user } = useContext(UserContext);
@@ -158,6 +159,7 @@ export default function edit(){
 
     return(
         <React.Fragment>
+            <body className={Landing.bgimages}>
             <NavBar/>
             <View title={ 'Explore' }>
             <Row className="justify-content-center">
@@ -245,6 +247,7 @@ export default function edit(){
                     </div>
                 </div>
             </footer>
+            </body>
         </React.Fragment>
     )
 }

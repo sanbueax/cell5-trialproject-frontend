@@ -7,11 +7,13 @@ import View from '../components/View'
 import NavBar from '../components/Nav'
 import AppHelper from '../apphelper'
 import Map from '../components/Map'
+import Landing from '../styles/Landing.module.css'
 
 export default function province({ province }){
   console.log(province)
 	return(
 		<React.Fragment>
+      <body className={Landing.bgimages}>
       <NavBar/>
         <View title={ 'Explore' }>
         <Row className="justify-content-center">
@@ -60,6 +62,7 @@ export default function province({ province }){
                     </div>
                 </div>
             </footer>
+            </body>
 		</React.Fragment>
 	)
 }
