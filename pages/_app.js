@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import NavBar from '../components/NavBar'
+// import NavBar from '../components/NavBar'
 // import View from '../components/View'
 
 import { UserProvider } from '../UserContext';
@@ -40,7 +40,7 @@ function MyApp({ Component, pageProps }) {
 
   return(
   	<UserProvider value={{user, setUser, unsetUser}}>
-  		<NavBar/>
+  		{/* <NavBar/> */}
 	  	<Component {...pageProps} />
   	</UserProvider>
   )

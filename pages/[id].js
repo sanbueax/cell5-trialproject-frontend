@@ -4,6 +4,7 @@
 import React from 'react';
 import { Col, Row, Container, Card } from 'react-bootstrap';
 import View from '../components/View'
+import NavBar from '../components/Nav'
 import AppHelper from '../apphelper'
 import Map from '../components/Map'
 
@@ -11,6 +12,7 @@ export default function province({ province }){
   console.log(province)
 	return(
 		<React.Fragment>
+      <NavBar/>
         <View title={ 'Explore' }>
         <Row className="justify-content-center">
         <Container className="pt-4 mb-5 background">
@@ -19,8 +21,8 @@ export default function province({ province }){
                     {/* <Banner country={country.country_name} cases={country.cases} deaths={country.deaths} criticals={country.serious_critical} recoveries={country.total_recovered}/> */}
                     <Row>
                       <Col xs={12} md={6}>
-                        <h1>{province.provinceName}</h1>
-                        <p>{province.description}</p>
+                        <h1 className="name">{province.provinceName}</h1>
+                        <p className="desc">{province.description}</p>
                       </Col>
                       <Col xs={12} md={6}>
                         <Map province={province.provinceName}/>
@@ -31,6 +33,33 @@ export default function province({ province }){
         </Container>
         </Row>
         </View>
+        <footer className="footer py-5">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-12">
+                            <p className="text-white text-center">
+                                Copyright © <span>San Buenaventura</span> 2020 | Contact Us <span>09391016007</span> 
+                            </p>
+                        </div>
+                        <div className="col-12">
+                            <div className="footer-links">
+                                <a href="#">
+                                    <i className="fab fa-facebook-square" aria-hidden="true"></i>
+                                </a>
+                                <a href="#">
+                                    <i className="fab fa-twitter-square" aria-hidden="true"></i>
+                                </a>
+                                <a href="#">
+                                    <i className="fab fa-instagram" aria-hidden="true"></i>
+                                </a>
+                                <a href="#">
+                                    <i className="fab fa-gitlab" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
 		</React.Fragment>
 	)
 }

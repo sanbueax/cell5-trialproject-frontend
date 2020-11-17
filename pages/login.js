@@ -1,16 +1,30 @@
-import { useState, /*, useEffect,*/ useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Form, Button, Card, Row, Col } from 'react-bootstrap'
 // import { GoogleLogin } from 'react-google-login'
+import NavBar from '../components/LoginNav'
 import Router from 'next/router'
 import Swal from 'sweetalert2'
 import UserContext from '../UserContext'
 import AppHelper from '../apphelper'
 import View from '../components/View'
 import Link from 'next/link'
+import Logedin from '../styles/Login.module.css'
 
 export default function login() {
     // const { user } = useContext(UserContext);
     // console.log(user)
+
+    useEffect(() => {
+        Swal.fire({
+            title: 'Are you an Admin?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: 'green',
+            cancelButtonColor: 'rgb(212,175,55)',
+            confirmButtonText: 'Yes, I am!',
+            allowOutsideClick: false
+        })
+    }, [Swal])
 
     // useEffect(() => {
     //     if(user.email){
@@ -28,11 +42,16 @@ export default function login() {
     // }, [user])   
     
     return (
-        <View title={ 'Login' }>      
+        <React.Fragment>
+        <body className={Logedin.bgimages}> 
+        <NavBar/>
+        <View title={ 'Login' }>
             <Row className="justify-content-center">
                 <Login/>
             </Row>
         </View>
+        </body>
+        </React.Fragment>
     ) 
 }
 
@@ -140,8 +159,6 @@ const Login = () => {
                         <Form.Control type="password" value={ password } onChange={ (e) => setPassword(e.target.value) } required/>
                     </Form.Group>
                     <Button className="mb-2" variant="primary" type="submit" block>Login</Button>
-                    <Card.Footer className="text-muted">Don't have an account? <Link href="/register">Sign Up</Link></Card.Footer>
-                    <hr/>
                     {/*<GoogleLogin
                         clientId="628236732996-f23vfnvoplq78jo4bjbmcjf22n3lde30.apps.googleusercontent.com"
                         buttonText="Login"

@@ -1,12 +1,14 @@
 import React, {useState, useEffect} from 'react'
 import { Form, Button, Container, Card, Row } from 'react-bootstrap'
 // import UserContext from '../UserContext'
+import NavBar from '../components/LoginNav'
 import AppHelper from '../apphelper'
 import Swal from 'sweetalert2'
 import Router from 'next/router'
 // import Head from 'next/head'
 import Link from 'next/link'
 import View from '../components/View'
+import Logedin from '../styles/Login.module.css'
 
 export default function register() {
     const [firstName, setFirstName] = useState('')
@@ -82,6 +84,8 @@ export default function register() {
 
     return (
         <React.Fragment>
+            <body className={Logedin.bgimages}> 
+            <NavBar/>
             <View title={ 'Register' }>
                 <Row className="justify-content-center">
                     <Card>
@@ -101,9 +105,6 @@ export default function register() {
 					            <Form.Group controlId="userEmail">
 					                <Form.Label>Email address</Form.Label>
 					                <Form.Control type="email" placeholder="Enter Email" value={email} onChange={e => setEmail(e.target.value)} required/>
-					                <Form.Text className="text-muted">
-					                We'll never share your email with anyone else.
-					                </Form.Text>
 					            </Form.Group>
 
 					            <Form.Group controlId="password1">
@@ -115,7 +116,6 @@ export default function register() {
 					                <Form.Label>Verify Password</Form.Label>
 					                <Form.Control type="password" placeholder="Verify Password" value={password2} onChange={e => setPassword2(e.target.value)} required/>
 					            </Form.Group>
-					            <Card.Footer className="text-muted mt-0">Already have an account? <Link href="/">Login</Link></Card.Footer>
 					            {isActive ?
 					                <Button className="w-100 text-center d-flex justify-content-center mt-3" variant="primary" type="submit" id="submitBtn">Submit</Button>
 					                :
@@ -126,6 +126,7 @@ export default function register() {
 					</Card>
                 </Row>
             </View>
+            </body>
         </React.Fragment>
     )
 }

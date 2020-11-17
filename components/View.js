@@ -9,7 +9,7 @@ const View = ({ title, children }) => {
                 <title key="title-tag">{ title }</title>
                 <meta key="title-meta" name="viewport" content="initial-scale=1.0, width=device-width"/>
             </Head>
-            <Container className="mt-5 pt-4 mb-5 background">
+            <Container className="mt-3 pt-4 mb-5">
                 { children }
             </Container>
         </React.Fragment>

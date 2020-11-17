@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Form, Button, Row, Card, Container } from 'react-bootstrap';
 import View from '../components/View'
+import NavBar from '../components/Nav'
 import AppHelper from '../apphelper'
 import { useRouter } from 'next/router'
 import Router from 'next/router';
@@ -157,6 +158,7 @@ export default function edit(){
 
     return(
         <React.Fragment>
+            <NavBar/>
             <View title={ 'Explore' }>
             <Row className="justify-content-center">
             <Container className="pt-4 mb-5 background">
@@ -198,6 +200,51 @@ export default function edit(){
             </Container>
             </Row>
             </View>
+
+            <Card>
+            <section className="section-1 my-5">
+                <div className="container">
+                    <div className="row p-5">
+                        <div className="col-12 col-sm-12 col-md-12 col-lg-12 line-highlight">
+                            <h1 className="sec1-h1 text-right-sm quotes">
+                                “The gladdest moment in human life is a departure into unknown lands.”
+                            </h1>
+                            <p>
+                                – <span>Sir Richard Burton</span> 
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            </Card>
+            
+            <footer className="footer py-5">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-12">
+                            <p className="text-white text-center">
+                                Copyright © <span>San Buenaventura</span> 2020 | Contact Us <span>09391016007</span> 
+                            </p>
+                        </div>
+                        <div className="col-12">
+                            <div className="footer-links">
+                                <a href="#">
+                                    <i className="fab fa-facebook-square" aria-hidden="true"></i>
+                                </a>
+                                <a href="#">
+                                    <i className="fab fa-twitter-square" aria-hidden="true"></i>
+                                </a>
+                                <a href="#">
+                                    <i className="fab fa-instagram" aria-hidden="true"></i>
+                                </a>
+                                <a href="#">
+                                    <i className="fab fa-gitlab" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </React.Fragment>
     )
 }

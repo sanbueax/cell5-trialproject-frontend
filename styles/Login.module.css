@@ -1,0 +1,7 @@
+.bgimages {
+    background-image: linear-gradient(rgba(245,182,162, 0.25), rgba(245,182,162, 0.25)), url("/loginbg.png")!important;
+    background-attachment: fixed;
+    background-position: contain;
+    background-size: cover;
+    height: 100vh;
+}

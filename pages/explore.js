@@ -1,13 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Card, Button, Form, Tabs, Tab, Row, Col, FormControl, Container } from 'react-bootstrap'
+import UserContext from '../UserContext';
+import NavBar from '../components/Nav'
+import View from '../components/View'
 import AppHelper from '../apphelper'
 import Swal from 'sweetalert2'
-import View from '../components/View'
 import Link from 'next/link';
+import Head from 'next/head'
 import Router from 'next/router';
+import Landing from '../styles/Landing.module.css'
 // import { useRouter } from 'next/router'
 
 export default function explore(){
+    const { user } = useContext(UserContext)
+
     const [islandGroup, setIslandGroup] = useState('Luzon');
     const [islandGroups, setIslandGroups] = useState('Luzon');
     const [island, setIsland] = useState('All');
@@ -104,13 +110,13 @@ export default function explore(){
 				console.log(regionArr.length === 0)
 
 				if(regionArr.length === 0){
-					Swal.fire('Oops...', 'Please Create Region Category!', 'warning')
+					Swal.fire('Oops...', 'Please Create Region/Province!', 'warning')
 					Router.push('/')
 				}else{
 					setRegion(regionArr[0].regionName)
 				}
             }else{
-				Swal.fire('Oops...', 'Please Create Region!', 'warning')
+				Swal.fire('Oops...', 'Please Create Region/Province!', 'warning')
 			}
 		})
     }, [islandGroup])
@@ -254,6 +260,8 @@ export default function explore(){
                             <React.Fragment key={record._id}>
                                 <Card.Header>
                                     <Row>
+                                        {user.email ? 
+                                        <React.Fragment>
                                         <Col className="col-10">
                                             <div>
                                                 <Link href={`${record.provinceName.replace(/\s/g,"_")}`}>
@@ -264,11 +272,22 @@ export default function explore(){
                                         </Col>
                                         <Col className="col-2">
                                             <Link href={{ pathname: '/edit', query: { recordId: record._id } }}>
-                                                <a className="text-warning">EDIT</a>
+                                                <a>EDIT</a>
                                             </Link>
                                             <br></br>
-                                            <a onClick={() => deleteRecord(record._id)} className="text-danger">DELETE</a>
+                                            <a onClick={() => deleteRecord(record._id)} >DELETE</a>
                                         </Col>
+                                        </React.Fragment>
+                                        :
+                                        <Col className="col-12">
+                                            <div>
+                                                <Link href={`${record.provinceName.replace(/\s/g,"_")}`}>
+                                                    <a>{record.provinceName}</a>
+                                                </Link>
+                                            </div> 
+                                            <div>{record.region} ({record.islandGroup})</div>
+                                        </Col>
+                                        }
                                     </Row>
                                 </Card.Header>
                                 <Card.Body>
@@ -299,6 +318,8 @@ export default function explore(){
                             <React.Fragment key={record._id}>
                                 <Card.Header>
                                     <Row>
+                                        {user.email ? 
+                                        <React.Fragment>
                                         <Col className="col-10">
                                             <div>
                                                 <Link href={`${record.provinceName.replace(/\s/g,"_")}`}>
@@ -309,11 +330,22 @@ export default function explore(){
                                         </Col>
                                         <Col className="col-2">
                                             <Link href={{ pathname: '/edit', query: { recordId: record._id } }}>
-                                                <a className="text-warning">EDIT</a>
+                                                <a>EDIT</a>
                                             </Link>
                                             <br></br>
-                                            <a onClick={() => deleteRecord(record._id)} className="text-danger">DELETE</a>
+                                            <a onClick={() => deleteRecord(record._id)} >DELETE</a>
                                         </Col>
+                                        </React.Fragment>
+                                        :
+                                        <Col className="col-12">
+                                            <div>
+                                                <Link href={`${record.provinceName.replace(/\s/g,"_")}`}>
+                                                    <a>{record.provinceName}</a>
+                                                </Link>
+                                            </div> 
+                                            <div>{record.region} ({record.islandGroup})</div>
+                                        </Col>
+                                        }
                                     </Row>
                                 </Card.Header>
                                 <Card.Body>
@@ -344,6 +376,8 @@ export default function explore(){
                             <React.Fragment key={record._id}>
                                 <Card.Header>
                                     <Row>
+                                        {user.email ? 
+                                        <React.Fragment>
                                         <Col className="col-10">
                                             <div>
                                                 <Link href={`${record.provinceName.replace(/\s/g,"_")}`}>
@@ -354,11 +388,22 @@ export default function explore(){
                                         </Col>
                                         <Col className="col-2">
                                             <Link href={{ pathname: '/edit', query: { recordId: record._id } }}>
-                                                <a className="text-warning">EDIT</a>
+                                                <a>EDIT</a>
                                             </Link>
                                             <br></br>
-                                            <a onClick={() => deleteRecord(record._id)} className="text-danger">DELETE</a>
+                                            <a onClick={() => deleteRecord(record._id)} >DELETE</a>
                                         </Col>
+                                        </React.Fragment>
+                                        :
+                                        <Col className="col-12">
+                                            <div>
+                                                <Link href={`${record.provinceName.replace(/\s/g,"_")}`}>
+                                                    <a>{record.provinceName}</a>
+                                                </Link>
+                                            </div> 
+                                            <div>{record.region} ({record.islandGroup})</div>
+                                        </Col>
+                                        }
                                     </Row>
                                 </Card.Header>
                                 <Card.Body>
@@ -389,6 +434,8 @@ export default function explore(){
                             <React.Fragment key={record._id}>
                                 <Card.Header>
                                     <Row>
+                                        {user.email ? 
+                                        <React.Fragment>
                                         <Col className="col-10">
                                             <div>
                                                 <Link href={`${record.provinceName.replace(/\s/g,"_")}`}>
@@ -399,11 +446,22 @@ export default function explore(){
                                         </Col>
                                         <Col className="col-2">
                                             <Link href={{ pathname: '/edit', query: { recordId: record._id } }}>
-                                                <a className="text-warning">EDIT</a>
+                                                <a>EDIT</a>
                                             </Link>
                                             <br></br>
-                                            <a onClick={() => deleteRecord(record._id)} className="text-danger">DELETE</a>
+                                            <a onClick={() => deleteRecord(record._id)} >DELETE</a>
                                         </Col>
+                                        </React.Fragment>
+                                        :
+                                        <Col className="col-12">
+                                            <div>
+                                                <Link href={`${record.provinceName.replace(/\s/g,"_")}`}>
+                                                    <a>{record.provinceName}</a>
+                                                </Link>
+                                            </div> 
+                                            <div>{record.region} ({record.islandGroup})</div>
+                                        </Col>
+                                        }
                                     </Row>
                                 </Card.Header>
                                 <Card.Body>
@@ -441,13 +499,20 @@ export default function explore(){
 
     return(
         <React.Fragment>
-            <View title={ 'Explore' }>
+            <Head>
+            <script src="https://kit.fontawesome.com/a65a62c6bd.js" crossorigin="anonymous"></script>
+            </Head>
+            <body className={Landing.bgimages}>
+            <NavBar/>
+            <View title={ 'Explore' }>    
             <Row className="justify-content-center">
-            <Container className="pt-4 mb-5 background">
+            <Container className="mb-3">
+
                 <Card>
                     <Card.Body>
+                        {user.email ?
                         <Tabs defaultActiveKey="provinces" id="listProvince" className="mb-3">
-                            <Tab eventKey="provinces" title="Provinces of the Philippines">
+                            <Tab className={Landing.textcolors} eventKey="provinces" title="Provinces of the Philippines">
                                 <Form>
                                     <Row>
                                         <Col className="col-7">
@@ -539,11 +604,84 @@ export default function explore(){
                                 </Form>
                             </Tab>
                         </Tabs>
+                        :
+                        <Tabs defaultActiveKey="provinces" id="listProvince" className="mb-3">
+                            <Tab className={Landing.textcolors} eventKey="provinces" title="Provinces of the Philippines">
+                                <Form>
+                                    <Row>
+                                        <Col className="col-7">
+                                        <Form.Group controlId="island">
+                                            <Form.Control as="select" onChange={e => setIsland(e.target.value)}>
+                                                <option value="All">All</option>
+                                                <option value="Luzon">Luzon</option>
+                                                <option value="Visayas">Visayas</option>
+                                                <option value="Mindanao">Mindanao</option>
+                                            </Form.Control>
+                                        </Form.Group>
+                                        </Col>
+
+                                        <Col className="col-5">
+                                        <Form.Group>
+                                            <FormControl type="text" placeholder="Search" className="mr-sm-2" value={search} onChange={e => setSearch(e.target.value)}/>
+                                        </Form.Group>
+                                        </Col>
+                                    </Row>
+                                </Form>
+                                <Card>
+                                    {list}
+                                </Card>
+                            </Tab>
+                        </Tabs>
+                        }      
                     </Card.Body>
                 </Card>
             </Container>
             </Row>
             </View>
+            <Card>
+            <section className="section-1 my-5">
+                <div className="container">
+                    <div className="row p-5">
+                        <div className="col-12 col-sm-12 col-md-12 col-lg-12 line-highlight">
+                            <h1 className="sec1-h1 text-right-sm quotes">
+                                “The gladdest moment in human life is a departure into unknown lands.”
+                            </h1>
+                            <p>
+                                – <span>Sir Richard Burton</span> 
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            </Card>
+            <footer className="footer py-5">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-12">
+                            <p className="text-white text-center">
+                                Copyright © <span>San Buenaventura</span> 2020 | Contact Us <span>09391016007</span> 
+                            </p>
+                        </div>
+                        <div className="col-12">
+                            <div className="footer-links">
+                                <a href="#">
+                                    <i className="fab fa-facebook-square" aria-hidden="true"></i>
+                                </a>
+                                <a href="#">
+                                    <i className="fab fa-twitter-square" aria-hidden="true"></i>
+                                </a>
+                                <a href="#">
+                                    <i className="fab fa-instagram" aria-hidden="true"></i>
+                                </a>
+                                <a href="#">
+                                    <i className="fab fa-gitlab" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            </body>
         </React.Fragment>
     )
 }

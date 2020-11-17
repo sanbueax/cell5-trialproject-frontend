@@ -15,7 +15,10 @@ export default function NavBar() {
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/explore">Explore</Nav.Link>
             {user.email 
-            ? <Nav.Link href="/logout">Logout</Nav.Link>
+            ? <React.Fragment>
+              <Nav.Link href="/register">Add User</Nav.Link>
+              <Nav.Link href="/logout">Logout</Nav.Link>
+              </React.Fragment>
             : <Nav.Link href="/login">Login</Nav.Link>
             }
           </Nav>
