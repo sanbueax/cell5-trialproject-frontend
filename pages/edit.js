@@ -101,14 +101,14 @@ export default function edit(){
 				console.log(regionArr.length === 0)
 
 				if(regionArr.length === 0){
-					Swal.fire('Oops...', 'Please Create Region Category!', 'warning')
+					Swal.fire('Oops...', 'Please Create Region/Province!', 'warning')
 					Router.push('/')
                 }
                 // else{
 				// 	setRegion(regionArr[0].regionName)
 				// }
             }else{
-				Swal.fire('Oops...', 'Please Create Region!', 'warning')
+				Swal.fire('Oops...', 'Please Create Region/Province!', 'warning')
 			}
 		})
     }, [islandGroup])
@@ -141,7 +141,7 @@ export default function edit(){
             Swal.fire({
               position: 'center',
               icon: 'success',
-              title: 'Transaction has been added!',
+              title: 'Modification successful!',
               showConfirmButton: false,
               timer: 1500
             })

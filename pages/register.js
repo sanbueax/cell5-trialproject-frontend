@@ -63,7 +63,7 @@ export default function register() {
                             showConfirmButton: false,
                             timer: 1500
                         })                        
-                        Router.push('/login')
+                        Router.push('/')
                     }else{
                         Swal.fire({
                             icon: 'error',

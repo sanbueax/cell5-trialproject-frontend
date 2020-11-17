@@ -57,7 +57,8 @@ export default function explore(){
 				  title: 'A new Region was successfully added!',
 				  showConfirmButton: false,
 				  timer: 1500
-				})
+                })
+                Router.push('/')
             }else{
                 Swal.fire({
 				  icon: 'error',
@@ -152,7 +153,8 @@ export default function explore(){
 				  title: 'A new Province was successfully added!',
 				  showConfirmButton: false,
 				  timer: 1500
-				})
+                })
+                Router.push('/')
             }else{
                 Swal.fire({
 				  icon: 'error',
@@ -241,7 +243,7 @@ export default function explore(){
                     setSearchData(data)
                 }
 			}else{
-				Swal.fire('Oops...', 'Please Create Transactions!', 'warning')
+				Swal.fire('Oops...', 'Please Create Region/Province!', 'warning')
 			}
 		})
     }, [search])
